@@ -1,24 +1,33 @@
 import logo from './logo.svg';
 import './App.css';
-
+import Videos from './Components/Videos';
+import Footer from './Components/Footer';
+import globalbg from './global-bg.webp';
+import 'antd/dist/antd.css';
+import { useState } from 'react';
+import axios from 'axios';
 function App() {
+  const [videoList, setVideoList] = useState([]);
+  const [prev, setPrev] = useState([]);
+  const [next, setNext] = useState([]);
+  const fetchVideoFromSource=(query,pageNumber)=>{
+    let url = "https://fampay-video-api-pankaj.herokuapp.com/videos/keyword/"+pageNumber;
+    url = url.replace("keyword",query);
+    axios.get(url).then(data=>{
+      setVideoList(data.data.data);
+      setPrev(data.data.prev)
+      setNext(data.data.next)
+    })
+  }
   return (
+    <>
+    {/* <img className="global-bg" src={globalbg}></img> */}
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Footer fetchVideoFromSource={fetchVideoFromSource} next={next} prev={prev}/>
+     <Videos videoList={videoList}/>
+     {/* <Footer/> */}
     </div>
+    </>
   );
 }
 

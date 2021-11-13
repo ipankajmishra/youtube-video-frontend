@@ -1,6 +1,35 @@
 .App {
   text-align: center;
+  filter: none !important;
+  -webkit-filter: none !important;
+  height: 100vh !important;
 }
+
+body{
+  background-color: black !important;
+  height: 100vh !important;
+  overflow: hidden;
+}
+.global-bg{
+  /* background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; */
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -5000 !important;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  position: absolute;
+  opacity: 150%;
+}
+
+.ant-btn-primary{
+  background-color: #F5A623 !important;
+  outline: none !important;
+  border: none !important;
+  color: black !important;
+}
+
 
 .App-logo {
   height: 40vmin;
