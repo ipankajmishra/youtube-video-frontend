@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# Youtube Video API with frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+To make an API to fetch latest videos sorted in reverse chronological order of their publishing date-time from YouTube for a given tag/search query in a paginated response.
 
-In the project directory, you can run:
 
-### `npm start`
+- Backend  - Node js - https://dashboard.heroku.com/apps/fampay-video-api-pankaj
+- Front end - React js - https://fpay-video.netlify.app
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Git repositories 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Backend - https://github.com/ipankajmishra/Fampay-Video-API.git
+Frontend - https://github.com/ipankajmishra/youtube-video-frontend.git
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- In search bar you can search for any keyword like cricket, football etc.
+- List of videos will come along with their title, description and thumbnail.
+- There is a provision to go next and previosus page.
+- For next and previous page youtube API is not getting called. The result will come from the data that is stored by the background sync.
+- Definition of background sync is Once the search query is initiated the first set of results will be returne and background sync will start. It will update the result after every 60 seconds and store the data.
+- Next time when the request will come for next and previous page, it will redirected to the data which is stored with us. Its basically beahving like a caching mechanism.
+- Multiple Youtube API keys are added. If one get exhausted it will automatically take the next available API key and push the exhaused api key for cooling. It is like poping from the available key's stack and push to the cooling keys Queue.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Fampay-Video-API requires [Node.js](https://nodejs.org/) v10+ to run.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Install the dependencies and devDependencies and start the server.
 
-### `npm run eject`
+```sh
+cd Fampay-Video-API
+npm i
+npm start or node src/index.js
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Docker
+Docker file is written named Dockerfile.
+We can build and run the container straightaway.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```sh
+docker build -t youtube-api-backend .
+docker run -d -p 8080:8080 --restart=always --name=youtueb-api-backend-container youtube-api-backend
